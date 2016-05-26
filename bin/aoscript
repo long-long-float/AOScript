@@ -1,0 +1,16 @@
+#! /usr/bin/env node
+
+var fs = require('fs');
+var aoscript = require('../dist/aoscript.js');
+
+if(process.argv[2] == undefined) {
+  console.log('usage: aoscript FILE');
+}
+else {
+  var env = new aoscript.Environment(null);
+  aoscript.eval(fs.readFileSync(process.argv[2]).toString(), env);
+  var exitcode = aoscript.applyFunction(env.getValue('main!'), []).toObject();
+
+  process.exit(exitcode);
+}
+

@@ -1,0 +1,33 @@
+{
+  "name": "aoscript",
+  "version": "0.1.0",
+  "author": "long_long_float",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-peg": "^0.1.2",
+    "gulp-typescript": "^2.9.2",
+    "minimist": "^1.2.0",
+    "run-sequence": "^1.1.4"
+  },
+  "description": "a pure functional language interpreter",
+  "main": "aoscript.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "pegjs": "^0.9.0",
+    "qunit": "^0.7.7"
+  },
+  "scripts": {
+    "test": "`npm bin`/qunit -c aoscript:./dist/aoscript.js -t ./test/test.js"
+  },
+  "keywords": [
+    "language",
+    "functional",
+    "interpreter"
+  ],
+  "license": "MIT"
+}
