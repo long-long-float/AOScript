@@ -1,7 +1,7 @@
 AOScript
 ====
 
-AOScript is an simple functional language which has C-line syntax.
+AOScript is an simple functional language which has C-like syntax.
 
 # Build
 
