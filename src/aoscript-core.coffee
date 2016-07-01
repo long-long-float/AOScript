@@ -320,18 +320,33 @@ AO.eval = (ast, opts = {}) ->
               console.log AO.currentEnv
               throw new EvaluationError("undefiend function #{ast.name.value}", ast.name.location)
     when 'BinaryOperation'
-      res = {
-        '+': (l, r) -> l + r
-        '-': (l, r) -> l - r
-        '*': (l, r) -> l * r
-        '%': (l, r) -> l % r
-        '==': (l, r) -> l == r
-        '>=': (l, r) -> l >= r
-        '<=': (l, r) -> l <= r
-        '<': (l, r) -> l < r
-        '>': (l, r) -> l > r
-      }[ast.op](AO.eval(ast.left, opts).value, AO.eval(ast.right, opts).value)
-      new AO.types.Int(res)
+      left = AO.eval(ast.left, opts).value
+      right = AO.eval(ast.right, opts).value
+      i = AO.types.Int
+      b = AO.types.Boolean
+      return switch(ast.op)
+        when '+'
+          new i(left + right)
+        when '-'
+          new i(left - right)
+        when '*'
+          new i(left * right)
+        when '%'
+          new i(left % right)
+        when '=='
+          new b(left == right)
+        when '>='
+          new b(left >= right)
+        when '<='
+          new b(left <= right)
+        when '>'
+          new b(left > right)
+        when '<'
+          new b(left < right)
+        when '||'
+          new b(left || right)
+        when '&&'
+          new b(left && right)
     when 'UnaryOperation'
       res = {
         '+': (v) -> v

@@ -143,10 +143,20 @@ expression = val:ope0 _ comment? { return filterEmptyList(val); }
            / comment
 
 ope0
- = type:(type / "val") _ id:identifier _ "=" _ expr:ope01
+ = type:(type / "val") _ id:identifier _ "=" _ expr:ope0_or
   { return makeBind(type, id, expr) }
  / outType:type _ id:identifier _ "(" _ firstArg:(type _ identifier)? restArgs:(_ "," _ type _ identifier)* _ ")" _ "{" _ block:block _ "}"
   { return makeBind("val", id, makeLambda(outType, firstArg, restArgs, block)) }
+ / ope0_or
+
+ope0_or
+  = left:ope0_and rest:(_ "||" _ ope0_and)+
+  { return makeBinaryOp(left, rest) }
+  / ope0_and
+
+ope0_and
+ = left:ope01 rest:(_ "&&" _ ope01)+
+  { return makeBinaryOp(left, rest) }
  / ope01
 
 ope01
